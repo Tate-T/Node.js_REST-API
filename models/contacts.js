@@ -1,14 +1,18 @@
-// const fs = require('fs/promises')
+const fs = require('fs/promises');
 
-const listContacts = async () => {}
+const path = require("path");
 
-const getContactById = async (contactId) => {}
+const uniqid = require("uniqid");
 
-const removeContact = async (contactId) => {}
+const listContacts = async () => { }
 
-const addContact = async (body) => {}
+const getContactById = async (contactId) => { }
 
-const updateContact = async (contactId, body) => {}
+const removeContact = async (contactId) => { }
+
+const addContact = async (body) => { }
+
+const updateContact = async (contactId, body) => { }
 
 module.exports = {
   listContacts,
