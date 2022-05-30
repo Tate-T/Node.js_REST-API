@@ -4,6 +4,8 @@ const path = require("path");
 
 const uniqid = require("uniqid");
 
+const Joi = require('joi');
+
 const contactsPath = path.join(__dirname, "./contacts.json");
 
 const listContacts = async () => {
@@ -27,7 +29,14 @@ const removeContact = async (contactId) => {
 }
 
 const addContact = async ({ name, email, phone }) => {
+  const schema = Joi.object({
+    name: Joi.string().alphanum().min(3).max(20).required(),
+    email: Joi.string().required(),
+    phone: Joi.number(),
+  });
   const contacts = await listContacts();
+  const validationResult = schema.validate({ name, email, phone });
+  if (validationResult.error) return false;
   const newContact = { id: uniqid(), name, email, phone };
   const newContacts = [...contacts, newContact]
   fs.writeFile(contactsPath, JSON.stringify(newContacts));
