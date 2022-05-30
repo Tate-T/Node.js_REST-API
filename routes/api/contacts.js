@@ -6,7 +6,7 @@ const {
   listContacts,
   getContactById,
   addContact,
-  // removeContact,
+  removeContact,
   // updateContact,
 } = require('../../models/contacts');
 
@@ -34,11 +34,17 @@ router.post('/', async (req, res, next) => {
 })
 
 router.delete('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
+  try {
+    const response = await removeContact(req.params.contactId);
+    return res.status(200).json({ "message": "contact deleted" })
+  } catch {
+    return res.status(404).json({ message: 'Not found' })
+  }
 })
 
 router.put('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
+
+
 })
 
 module.exports = router
