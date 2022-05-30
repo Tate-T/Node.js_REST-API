@@ -1,5 +1,7 @@
 ## GoIT Node.js Course Template Homework
 
+https://github.com/NadyaHristuk/node.js_additional-materials
+
 Выполните форк этого репозитория для выполнения домашних заданий (2-6)
 Форк создаст репозиторий на вашем http://github.com
 
