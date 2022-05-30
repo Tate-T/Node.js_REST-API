@@ -31,8 +31,8 @@ const removeContact = async (contactId) => {
 const addContact = async ({ name, email, phone }) => {
   const schema = Joi.object({
     name: Joi.string().alphanum().min(3).max(20).required(),
-    email: Joi.string().required(),
-    phone: Joi.number(),
+    email: Joi.string().email().required(),
+    phone: Joi.number().min(14).max(16),
   });
   const contacts = await listContacts();
   const validationResult = schema.validate({ name, email, phone });
