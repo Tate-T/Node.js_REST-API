@@ -1,4 +1,4 @@
-const { Contacts } = require("./mongooseModel");
+const { Contacts } = require("../db/mongooseContact");
 
 const listContacts = async () => {
   return await Contacts.find({});
