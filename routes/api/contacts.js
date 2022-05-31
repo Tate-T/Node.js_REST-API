@@ -2,6 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
+const { validation } = require('../../middlevares/validation');
+
 const {
   listContacts,
   getContactById,
@@ -24,7 +26,7 @@ router.get('/:contactId', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', validation, async (req, res, next) => {
   try {
     return res.status(201).json(await addContact(req.body))
   } catch {
