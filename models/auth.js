@@ -1,4 +1,6 @@
 const { User } = require('../db/usersAuth');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const registration = async ({ email, password }) => {
     try {

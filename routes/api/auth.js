@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const { validation } = require('../../middlevares/validation');
+const { userValidation } = require('../../middlevares/validation');
 
 const { authCheck } = require('../../middlevares/authCheck');
 
@@ -14,7 +14,7 @@ const {
     current
 } = require('../../models/auth');
 
-router.post('/register', validation, async (req, res, next) => {
+router.post('/register', userValidation, async (req, res, next) => {
     const userMail = req.body.email
     const existingUser = await await User.findOne({ userMail });
 
@@ -27,7 +27,7 @@ router.post('/register', validation, async (req, res, next) => {
     res.status(201).json(user);
 });
 
-router.post("/login", validation, async (req, res, next) => {
+router.post("/login", userValidation, async (req, res, next) => {
     const result = await login(req.body);
     if (!result)
         return res.status(401).json({ message: 'Email or password is wrong' });
