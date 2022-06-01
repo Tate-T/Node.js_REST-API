@@ -8,7 +8,8 @@ const registration = async ({ email, password }) => {
     try {
         const user = new User({
             email,
-            password: await bcrypt.hash(password, 10)
+            password: await bcrypt.hash(password, 10),
+            avatarURL: gravatar.url(email, { protocol: "http", s: 300 })
         })
         await user.save();
 

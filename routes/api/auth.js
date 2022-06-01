@@ -2,6 +2,12 @@ const express = require('express');
 
 const router = express.Router();
 
+const multer = require("../../multer");
+const Jimp = require("jimp");
+const fs = require("fs").promises;
+const path = require("path");
+const { v4: uuidv4 } = require("uuid");
+
 const { userValidation } = require('../../middlevares/validation');
 
 const { authCheck } = require('../../middlevares/authCheck');
@@ -46,6 +52,26 @@ router.get("/current", authCheck, async (req, res, next) => {
     if (!result)
         return res.status(401).json({ message: 'Not authorized' });
     res.status(200).json({ user: result });
+});
+
+router.patch("/avatars", multer.single("picture"), async (req, res, next) => {
+    const { description } = req.body;
+    const { path: temporaryName, originalname } = req.file;
+    const newPathName = path.join(
+        process.cwd(),
+        `public/avatars/${uuidv4()}_${originalname}`
+    );
+
+    Jimp.read(temporaryName, async (err, storeImage) => {
+        if (err) throw err;
+        storeImage
+            .resize(250, 250) // resize
+            .quality(60) // set JPEG quality
+            .write(newPathName); // save
+        await fs.unlink(temporaryName);
+    });
+
+    res.json({ description, message: "Файл успешно загружен", status: 200 });
 });
 
 module.exports = router;
