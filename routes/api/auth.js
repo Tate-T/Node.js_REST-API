@@ -6,7 +6,7 @@ const { userValidation } = require('../../middlevares/validation');
 
 const { authCheck } = require('../../middlevares/authCheck');
 
-const { User } = require('../../models/auth');
+const { User } = require('../../db/usersAuth');
 const {
     registration,
     login,
@@ -16,7 +16,7 @@ const {
 
 router.post('/register', userValidation, async (req, res, next) => {
     const userMail = req.body.email
-    const existingUser = await await User.findOne({ userMail });
+    const existingUser = await User.findOne({ userMail });
 
     if (existingUser) {
         return res.status(409).json({ message: "Email in use" });
