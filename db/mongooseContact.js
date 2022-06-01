@@ -19,6 +19,9 @@ const contactsSchema = new mongoose.Schema({
     owner: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'user',
+    },
+    avatarURL: {
+        type: String,
     }
 });
 

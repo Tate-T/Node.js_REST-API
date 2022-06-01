@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const { validation } = require('../../middlevares/validation');
+const multer = require('multer');
 
 const {
   listContacts,
@@ -12,6 +13,7 @@ const {
   updateContact,
   updateStatusContact,
 } = require('../../models/contacts');
+
 
 router.get('/', async (req, res, next) => {
   const contacts = await listContacts();
